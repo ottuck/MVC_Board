@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.global.ex.mapper.BoardMapper">
+    <!-- CDATA 안에 있는 SQL 문에다가 세미콜론 붙이면 골로간다. -->
+    <select id="getList" resultType="edu.global.ex.vo.BoardVO">
+        <![CDATA[
+            SELECT * FROM MVC_BOARD ORDER BY BGROUP DESC, BSTEP ASC
+        ]]>
+    </select>
+    <!-- mybatis.type-aliases-package=edu.global.ex.vo -->
+    <select id="read" resultType="BoardVO">
+        <![CDATA[
+            SELECT * FROM MVC_BOARD WHERE BID = #{bid}
+        ]]>
+    </select>
+
+    <insert id="insert">      <!--"" 안에는 개발자가 직접 넣는 것이다. (함수명)-->
+        <![CDATA[
+              INSERT INTO MVC_BOARD (BID, BNAME, BTITLE, BCONTENT, BHIT, BGROUP, BSTEP, BINDENT)
+              VALUES (mvc_board_seq.nextval, #{bname}, #{btitle}, #{bcontent}, 0, mvc_board_seq.currval, 0, 0)
+        ]]>
+    </insert>
+
+    <delete id="delete">
+        <![CDATA[
+              DELETE FROM MVC_BOARD WHERE BID = #{bid}
+        ]]>
+    </delete>
+
+</mapper>
